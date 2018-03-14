@@ -2,7 +2,7 @@
 
 
 IntensityImage * StudentPreProcessing::stepToIntensityImage(const RGBImage &image) const {
-	return nullptr;
+	return nullptr; // Daadwerkelijke implementatie Greyscalinghncdhgcehge
 }
 
 IntensityImage * StudentPreProcessing::stepScaleImage(const IntensityImage &image) const {

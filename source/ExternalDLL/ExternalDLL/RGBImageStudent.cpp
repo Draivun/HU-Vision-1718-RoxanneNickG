@@ -6,71 +6,48 @@ RGBImageStudent::RGBImageStudent() : RGBImage() {
 }
 
 RGBImageStudent::RGBImageStudent(const RGBImageStudent &other) : RGBImage(other.getWidth(), other.getHeight()) {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: Create a copy from the other object
+    for (int pixel_location = 0; pixel_location < (getWidth()*getHeight()); ++pixel_location) {
+        RGB copied_pixel = other.getPixel(pixel_location);
+        setPixel(pixel_location, copied_pixel);
+    }
 }
 
 
 RGBImageStudent::RGBImageStudent(const int width, const int height) : RGBImage(width, height) {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: Initialize pixel storage
+    RGB_array = new RGB[(width*height)];
 }
 
 RGBImageStudent::~RGBImageStudent() {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: delete allocated objects
+    delete[] RGB_array;
 }
 
 void RGBImageStudent::set(const int width, const int height) {
 	RGBImage::set(width, height);
-	int throwError = 0, e = 1 / throwError;
-	//TODO: resize or create a new pixel storage (Don't forget to delete the old storage)
+    delete[] RGB_array;
+    RGB_array = new RGB[(width*height)];
 }
 
 void RGBImageStudent::set(const RGBImageStudent &other) {
 	RGBImage::set(other.getWidth(), other.getHeight());
-	int throwError = 0, e = 1 / throwError;
-	//TODO: resize or create a new pixel storage and copy the object (Don't forget to delete the old storage)
+    delete[] RGB_array;
+    for (int pixel_location = 0; pixel_location < (getWidth()*getHeight()); ++pixel_location) {
+        RGB copied_pixel = other.getPixel(pixel_location);
+        setPixel(pixel_location, copied_pixel);
+    }
 }
 
 void RGBImageStudent::setPixel(int x, int y, RGB pixel) {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: no comment needed :)
+    RGB_array[(y*(getWidth())) + x] = pixel;
 }
 
 void RGBImageStudent::setPixel(int i, RGB pixel) {
-	int throwError = 0, e = 1 / throwError;
-	/*
-	* TODO: set pixel i in "Row-Major Order"
-	*
-	*
-	* Original 2d image (values):
-	* 9 1 2
-	* 4 3 5
-	* 8 7 8
-	*
-	* 1d representation (i, value):
-	* i		value
-	* 0		9
-	* 1		1
-	* 2		2
-	* 3		4
-	* 4		3
-	* 5		5
-	* 6		8
-	* 7		7
-	* 8		8
-	*/
+    RGB_array[i] = pixel;
 }
 
 RGB RGBImageStudent::getPixel(int x, int y) const {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: no comment needed :)
-	return 0;
+    return RGB_array[(y*(getWidth())) + x];
 }
 
 RGB RGBImageStudent::getPixel(int i) const {
-	int throwError = 0, e = 1 / throwError;
-	//TODO: see setPixel(int i, RGB pixel)
-	return 0;
+    return RGB_array[i];
 }

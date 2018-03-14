@@ -9,6 +9,8 @@
 class RGBImageStudent : public RGBImage {
 public:
 
+    RGB * RGB_array;
+
 	RGBImageStudent();
 	RGBImageStudent(const RGBImageStudent &other);
 	RGBImageStudent(const int width, const int height);
