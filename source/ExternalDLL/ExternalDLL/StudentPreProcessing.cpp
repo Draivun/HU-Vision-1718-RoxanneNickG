@@ -11,7 +11,7 @@ IntensityImage * StudentPreProcessing::stepToIntensityImage(const RGBImage &imag
     for (int new_width = 0; new_width < source_width; ++new_width) {
         for (int new_height = 0; new_height < source_height; ++new_height) {
             RGB source_pixel = image.getPixel(new_width, new_height);
-            Intensity new_pixel = source_pixel.b;
+            Intensity new_pixel = source_pixel.g;
 
             greyscaled->setPixel(new_width, new_height, new_pixel);
         }
