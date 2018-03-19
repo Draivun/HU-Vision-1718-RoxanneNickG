@@ -9,11 +9,15 @@
 #include "HereBeDragons.h"
 #include "ImageFactory.h"
 #include "DLLExecution.h"
+#include "basetimer.h"
 
 void drawFeatureDebugImage(IntensityImage &image, FeatureMap &features);
 bool executeSteps(DLLExecution * executor);
 
 int main(int argc, char * argv[]) {
+
+    BaseTimer henk;
+    henk.start();
 
 	//ImageFactory::setImplementation(ImageFactory::DEFAULT);
 	ImageFactory::setImplementation(ImageFactory::STUDENT);
@@ -49,6 +53,8 @@ int main(int argc, char * argv[]) {
 	}
 
 	delete executor;
+    henk.stop();
+    std::cout << henk.elapsedMicroSeconds() << std::endl;
 	system("pause");
 	return 1;
 }
