@@ -15,46 +15,54 @@ void drawFeatureDebugImage(IntensityImage &image, FeatureMap &features);
 bool executeSteps(DLLExecution * executor);
 
 int main(int argc, char * argv[]) {
+    int times[100];
+    for (int i = 0; i < 100; i++) {
+        BaseTimer henk;
+        henk.start();
 
-    BaseTimer henk;
-    henk.start();
-
-	//ImageFactory::setImplementation(ImageFactory::DEFAULT);
-	ImageFactory::setImplementation(ImageFactory::STUDENT);
-
-
-	//ImageIO::debugFolder = "D:\\Users\\Rolf\\Downloads\\FaceMinMin";
-    ImageIO::debugFolder = "C:\\ti-software\\HU-Vision-1718-RoxanneNickG\\testsets\\Set A\\TestSet Images";
-	ImageIO::isInDebugMode = true; //If set to false the ImageIO class will skip any image save function calls
+        //ImageFactory::setImplementation(ImageFactory::DEFAULT);
+        ImageFactory::setImplementation(ImageFactory::STUDENT);
 
 
+        //ImageIO::debugFolder = "D:\\Users\\Rolf\\Downloads\\FaceMinMin";
+        ImageIO::debugFolder = "C:\\ti-software\\HU-Vision-1718-RoxanneNickG\\testsets\\Set A\\TestSet Images";
+        ImageIO::isInDebugMode = true; //If set to false the ImageIO class will skip any image save function calls
 
 
-	RGBImage * input = ImageFactory::newRGBImage();
-	//if (!ImageIO::loadImage("D:\\Users\\Rolf\\Downloads\\TestA5.jpg", *input)) {
-    if (!ImageIO::loadImage("C:\\ti-software\\HU-Vision-1718-RoxanneNickG\\testsets\\Set A\\TestSet Images\\female-2.png", *input)) {
-		std::cout << "Image could not be loaded!" << std::endl;
-		system("pause");
-		return 0;
-	}
 
 
-	ImageIO::saveRGBImage(*input, ImageIO::getDebugFileName("debug.png"));
+        RGBImage * input = ImageFactory::newRGBImage();
+        //if (!ImageIO::loadImage("D:\\Users\\Rolf\\Downloads\\TestA5.jpg", *input)) {
+        if (!ImageIO::loadImage("C:\\ti-software\\HU-Vision-1718-RoxanneNickG\\testsets\\Set A\\TestSet Images\\female-2.png", *input)) {
+            std::cout << "Image could not be loaded!" << std::endl;
+            system("pause");
+            return 0;
+        }
 
-	DLLExecution * executor = new DLLExecution(input);
+
+        ImageIO::saveRGBImage(*input, ImageIO::getDebugFileName("debug.png"));
+
+        DLLExecution * executor = new DLLExecution(input);
 
 
-	if (executeSteps(executor)) {
-		std::cout << "Face recognition successful!" << std::endl;
-		std::cout << "Facial parameters: " << std::endl;
-		for (int i = 0; i < 16; i++) {
-			std::cout << (i+1) << ": " << executor->facialParameters[i] << std::endl;
-		}
-	}
+        if (executeSteps(executor)) {
+            //std::cout << "Face recognition successful!" << std::endl;
+            //std::cout << "Facial parameters: " << std::endl;
+            for (int i = 0; i < 16; i++) {
+                //std::cout << (i + 1) << ": " << executor->facialParameters[i] << std::endl;
+            }
+        }
 
-	delete executor;
-    henk.stop();
-    std::cout << henk.elapsedMicroSeconds() << std::endl;
+        delete executor;
+        henk.stop();
+        times[i] = henk.elapsedMicroSeconds();
+        std::cout << henk.elapsedMicroSeconds() << std::endl;
+    }
+    int result = 0;
+    for (int j = 0; j < 100; j++) {
+        result += times[j];
+    }
+    std::cout << result / 100 << std::endl;
 	system("pause");
 	return 1;
 }
